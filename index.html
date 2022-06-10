@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
-    <meta name="author" content="Hcode Treinamentos" />
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style/style.css" />
@@ -18,7 +18,7 @@
     <div class="d-flex justify-content-center align-items-center h-100">
       <div id="calculator" class="d-flex flex-column">
         <div class="col d-flex justify-content-end align-items-end">
-          <div id="display">0</div>
+          <div id="display"></div>
         </div>
         <div id="divButtons" class="col">
           <div class="row">
@@ -54,11 +54,13 @@
           <div class="row">
             <button type="button" class="btn btn-others col-sm">±</button>
             <button type="button" class="btn btn-number col-sm">0</button>
-            <button type="button" class="btn btn-others col-sm">,</button>
+            <button type="button" class="btn btn-others col-sm">.</button>
             <button type="button" class="btn btn-others col-sm">=</button>
           </div>
         </div>
       </div>
     </div>
+    <script src="script/controller/CalController.js"></script>
+    <script src="script/calculator.js"></script>
   </body>
 </html>

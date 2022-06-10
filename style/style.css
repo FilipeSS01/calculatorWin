@@ -4,7 +4,7 @@ html {
 }
 
 html body {
-  background-color: #a1a1a1;
+  background-color: #282c35;
 }
 
 #calculator {
@@ -12,6 +12,7 @@ html body {
   width: 322px;
   height: 470px;
   padding: 6px;
+  box-shadow: 0px 0px 20px 0px rgba(92, 92, 92, 0.5);
 }
 
 #divButtons {
@@ -54,7 +55,6 @@ html body {
   text-align: right;
   position: absolute;
   bottom: 0;
-  width: 100%;
   font-size: 48px;
   font-weight: 400;
 }
