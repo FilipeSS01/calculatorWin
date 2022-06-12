@@ -4,6 +4,8 @@ class CalcController {
     this._displayCal = "";
 
     this._operation = [];
+    this._lastNumber = "";
+    this._lastOperator = "";
 
     this.initialize();
     this.displayCal = 0;
@@ -38,11 +40,41 @@ class CalcController {
       case "less":
         this.addOperation("-");
         break;
+      case "division":
+        this.addOperation("/");
+        break;
+      case "multiplication":
+        this.addOperation("*");
+        break;
+      // case "percent":
+      //   this.percent();
+      //   break;
+      // case "sqrt":
+      //   this.sqrt();
+      //   break;
+      // case "pow":
+      //   this.pow();
+      //   break;
+      // case "invert":
+      //   this.invert();
+      //   break;
+      // case "plusLess":
+      //   this.plusLess();
+      //   break;
+      // case "dot":
+      //   this.addDot();
+      //   break;
+      case "equals":
+        this.calc();
+        break;
       case "c":
         this.clear();
         break;
       case "ce":
         this.clearEntry();
+        break;
+      case "backspace":
+        this.backSpace();
         break;
 
       default:
@@ -68,47 +100,51 @@ class CalcController {
       if (this.isOperator(value)) {
         this.setLastOperation(value);
       } else {
-        this.pushOperation(value);
+        this.pushOperation(parseFloat(value));
       }
     } else {
       if (this.isOperator(value)) {
         this.pushOperation(value);
       } else {
         let newValue = this.getLastOperation().toString() + value.toString();
-        this.setLastOperation(newValue);
+        this.setLastOperation(parseFloat(newValue));
       }
     }
     this.updateDisplay();
   }
-
+  calc() {}
+  // I don't know what it takes but I think I'm done
   clear() {
     this._operation = [];
     this.displayCal = 0;
   }
-
+  // I don't know what it takes but I think I'm done
   clearEntry() {
     if (!this.isOperator(this.getLastOperation())) {
       this._operation.pop();
     }
     this.displayCal = 0;
   }
-
+  // Needs to be implemented - this._operation cannot be more than 3 elements
   pushOperation(value) {
     this._operation.push(value);
+    if (this._operation.length > 3) {
+      this.calc();
+    }
   }
-
+  // I don't know what it takes but I think I'm done
   isOperator(value) {
     return ["+", "-", "*", "%", "/"].indexOf(value) > -1;
   }
-
+  // Finish
   getLastOperation() {
     return this._operation[this._operation.length - 1];
   }
-
+  // Finish
   setLastOperation(value) {
     this._operation[this._operation.length - 1] = value;
   }
-
+  // Needs to be implemented
   updateDisplay() {
     this.displayCal = this._operation.join(" ");
   }
