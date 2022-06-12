@@ -146,6 +146,20 @@ class CalcController {
     return ["+", "-", "*", "%", "/"].indexOf(value) > -1;
   }
   // Finish
+  getLastItem(isOperator = true) {
+    let lastItem = "";
+    for (let i = this._operation.length - 1; i >= 0; i--) {
+      if (this.isOperator(this._operation[i]) == isOperator) {
+        lastItem = this._operation[i];
+        break;
+      }
+    }
+    if (!lastItem && lastItem != 0) {
+      lastItem = isOperator ? this._lastOperator : this._lastNumber;
+    }
+    return lastItem;
+  }
+  // Finish
   getLastOperation() {
     return this._operation[this._operation.length - 1];
   }
