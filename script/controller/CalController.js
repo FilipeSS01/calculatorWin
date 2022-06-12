@@ -125,6 +125,15 @@ class CalcController {
     }
     this.displayCal = 0;
   }
+  // Needs to be reviewed
+  backSpace() {
+    if (!isNaN(this.getLastOperation())) {
+      let backSpace = this.getLastOperation().split("");
+      backSpace.pop();
+      this.setLastOperation(backSpace.join(""));
+      this.updateDisplay();
+    }
+  }
   // Needs to be implemented - this._operation cannot be more than 3 elements
   pushOperation(value) {
     this._operation.push(value);
