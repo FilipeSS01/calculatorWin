@@ -160,6 +160,10 @@ class CalcController {
     return lastItem;
   }
   // Finish
+  getResult() {
+    return eval(this._operation.join(" "));
+  }
+  // Finish
   getLastOperation() {
     return this._operation[this._operation.length - 1];
   }
