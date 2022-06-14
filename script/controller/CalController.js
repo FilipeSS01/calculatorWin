@@ -98,7 +98,12 @@ class CalcController {
   addOperation(value) {
     if (isNaN(this.getLastOperation())) {
       if (this.isOperator(value)) {
-        this.setLastOperation(value);
+        if (this._operation.length == 0) {
+          this.pushOperation(0);
+          this.pushOperation(value);
+        } else {
+          this.setLastOperation(value);
+        }
       } else {
         this.pushOperation(parseFloat(value));
       }
@@ -112,9 +117,15 @@ class CalcController {
     }
     this.updateDisplay();
   }
-  calc() {}
+  calc() {
+    let result = this.getResult();
+    this._operation = [result];
+    this.updateDisplay();
+  }
   // I don't know what it takes but I think I'm done
   clear() {
+    this._lastNumber = "";
+    this._lastOperator = "";
     this._operation = [];
     this.displayCal = 0;
   }
@@ -128,7 +139,7 @@ class CalcController {
   // Needs to be reviewed
   backSpace() {
     if (!isNaN(this.getLastOperation())) {
-      let backSpace = this.getLastOperation().split("");
+      let backSpace = this.getLastOperation().toString().split("");
       backSpace.pop();
       this.setLastOperation(backSpace.join(""));
       this.updateDisplay();
