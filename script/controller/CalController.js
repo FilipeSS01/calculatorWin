@@ -12,7 +12,6 @@ class CalcController {
   }
 
   initialize() {
-    // alert("JS configurado com sucesso!");
     this.btnEvents();
   }
 
@@ -115,12 +114,37 @@ class CalcController {
         this.setLastOperation(parseFloat(newValue));
       }
     }
+    console.log(this._operation);
     this.updateDisplay();
   }
   calc() {
-    let result = this.getResult();
-    this._operation = [result];
-    this.updateDisplay();
+    if (this._operation.length > 0 || this._lastNumber == "" || this._lastOperator == "") {
+      let last = "";
+      this._lastOperator = this.getLastItem();
+
+      if (this._operation.length < 3) {
+        let firstItem = this._operation[0];
+        this._operation = [firstItem, this._lastOperator, this._lastNumber];
+        console.log(firstItem);
+      }
+
+      if (this._operation.length > 3) {
+        last = this._operation.pop();
+        this._lastNumber = this.getResult();
+      } else if (this._operation.length == 3) {
+        this._lastNumber = this.getLastItem(false);
+      }
+
+      let result = this.getResult();
+      if (last == "%") {
+        result /= 100;
+        this._operation = [result];
+      } else {
+        this._operation = [result];
+        if (last) this._operation.push(last);
+      }
+      this.updateDisplay();
+    }
   }
   // I don't know what it takes but I think I'm done
   clear() {
@@ -138,10 +162,14 @@ class CalcController {
   }
   // Needs to be reviewed
   backSpace() {
-    if (!isNaN(this.getLastOperation())) {
+    if ((!isNaN(this.getLastOperation()) && this._lastNumber == "" && this._lastOperator == "") || (this._operation.length > 2)) {
       let backSpace = this.getLastOperation().toString().split("");
       backSpace.pop();
       this.setLastOperation(backSpace.join(""));
+      if (this._operation[this._operation.length - 1] == "") {
+        this._operation.pop();
+        this._operation.push(0);
+      }
       this.updateDisplay();
     }
   }
@@ -158,7 +186,7 @@ class CalcController {
   }
   // Finish
   getLastItem(isOperator = true) {
-    let lastItem = "";
+    let lastItem;
     for (let i = this._operation.length - 1; i >= 0; i--) {
       if (this.isOperator(this._operation[i]) == isOperator) {
         lastItem = this._operation[i];
