@@ -117,6 +117,7 @@ class CalcController {
     console.log(this._operation);
     this.updateDisplay();
   }
+  // Finish
   calc() {
     if (this._operation.length > 0 || this._lastNumber == "" || this._lastOperator == "") {
       let last = "";
@@ -173,7 +174,7 @@ class CalcController {
       this.updateDisplay();
     }
   }
-  // Needs to be implemented - this._operation cannot be more than 3 elements
+  // Finish
   pushOperation(value) {
     this._operation.push(value);
     if (this._operation.length > 3) {
